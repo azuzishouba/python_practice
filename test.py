@@ -149,6 +149,61 @@ def count_every_word(s:str)->int:
     count=Counter(s)
     return dict(count)
 
+#给定字符串,移除相同的字符直到没有重复且相邻的字符
+def str_remove_duplicate(str1):
+    str1=str1.lower()
+    for char in str1:
+        if str1.count(char)>=2:
+            str1=str1.replace(char,' ')
+    return str1
+
+
+#给定整数n,求小于该整数n的素数
+def sushu_below_n(n):
+    list=[]
+    if n==1:
+        print("1就是素数")
+    if n>1:
+        for num in range(1,n+1):
+            if num%2!=0 and num%3!=0 and num%5!=0:
+                list.append(num)
+    for num in list:
+        print(num)  
+
+
+#输入一些整数 将从大到小输出
+def sort_by_number(num_list):
+    num_list.sort()
+    print(num_list)
+
+#统计字符串中每个单词的出现次数（区分大小写）
+from collections import Counter
+def every_word_count(s:str)->dict:
+    count=Counter(s)
+    return dict(count.most_common())
+
+#找出列表中第二大的数（不排序）
+def find_second_max_number(lst:list)->int:
+    max_num=max(lst)
+    min_num=min(lst)
+    second_num=lst[0]
+    for num in lst:
+        if num <max_num and num>second_num:
+            second_num=num
+        elif max_num==min_num:
+            return lst[0]
+    return second_num
+#判断一个数是否是质数（素数）
+import math
+def num_is_prime(num:int)->bool:
+    if num<=1:
+        return "输入一个大于1的整数"
+    elif num>1:
+        for i in range(2,num):
+            if num%i==0:
+                return False
+        return True
+
 #从列表中删除所有的偶数
 def remove_oushu_from_list(lst:list)->list:
     return [x for x in lst if x%2==1]
@@ -191,14 +246,14 @@ def two_lists_have_same_element(lst1,lst2:list)->bool:
     return lst1==lst2
 
 #将列表中连续出现的重复元素合并为一个
-def two_duplicate_element_merge(lst:list)->list:
+def two_duplicate_element_merge_to_one(lst:list)->list:
     result=[]
+    result.append(lst[0])
     for i in range(0,len(lst)-1):
-        for j in range(i+1,len(lst)):
-            if lst[i]==lst[j] or lst.count(lst[i])==1:
-                result.append(lst[i])
+        if lst[i+1]!=lst[i]:
+            result.append(lst[i+1])
     return result
-
+    
 if __name__=="__main__":
     lst=list(map(int,input("输入整数:").split()))
-    print(two_duplicate_element_merge(lst))
+    print(two_duplicate_element_merge_to_one(lst))
