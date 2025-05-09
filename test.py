@@ -253,7 +253,45 @@ def two_duplicate_element_merge_to_one(lst:list)->list:
         if lst[i+1]!=lst[i]:
             result.append(lst[i+1])
     return result
-    
+#统计每个字符的出现次数（忽略大小写）
+from collections import Counter
+def count_every_time(s:str)->str:
+    count=Counter(s)
+    return dict(count.most_common())
+#判断列表中是否有重复元素
+def whether_list_is_duplicate(lst:list)->bool:
+    for num in lst:
+        if lst.count(num)>=2:
+            return True
+    return False
+#找出列表中所有长度大于3的字符串
+def find_length_greater_three(s:list)->str:
+    result=[]
+    for word in s:
+        if len(word)>=3:
+            result.append(word)
+    return result
+#判断一个字符串是否是回文数字（忽略非数字字符）
+'''输入一个字符串，提取其中的所有数字字符，并判断这些数字组成的字符串是否为回文。 '''      
+def whether_str_is_huiwen_number(s:str)->bool:
+    new_s=""
+    for char in s:
+        if char.isdigit():
+            new_s+=char
+    return new_s==new_s[::-1]
+#找出列表中只出现一次的元素（整数列表）
+def find_one_element(lst:list)->list:
+    result=[]
+    for num in lst:
+        if lst.count(num)==1:
+            result.append(num)
+    return result
+#统计字符串中每个单词的长度
+def count_word_length(s:str)->dict:
+    result={}
+    for word in s:
+        result[word]=len(word)
+    return result
 if __name__=="__main__":
-    lst=list(map(int,input("输入整数:").split()))
-    print(two_duplicate_element_merge_to_one(lst))
+    s=input("输入字符串: ").split()
+    print(count_word_length(s))
