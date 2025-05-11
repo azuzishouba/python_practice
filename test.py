@@ -80,17 +80,21 @@ def extract_odds(lst: list) -> list:
     return lst_qishu
 
 #判断左右括号是否匹配
+#实现思路:通过栈的思想,将左括号与右括号配对,最后判断左括号是否不配右括号以及栈是否为空,两者符合其一返回false,否则返回true
 def is_brackets_valid(s: str) -> bool:
+    #创建空栈
     stack=[]
-    dict={'(':')','[':']','{':'}'}
-    for char in s:
-        if char in dict.keys():
-            stack.append(char)
-        elif char in dict.values():
-            if len(stack)==0 or dict[stack.pop()] != char:
+    #创建匹配关系的字典
+    brack_dict={'(':')','[':']','{':'}'}
+    #遍历字符串,符合则将左括号入栈
+    for bracket in s:
+        if bracket in brack_dict.keys():
+            stack.append(bracket)
+        elif bracket in brack_dict.values():
+            if not stack or brack_dict[stack.pop()]!=bracket:
                 return False
-    return True
-
+    #最后需要判断栈是否为空才能返回True
+    return not stack
 
 #判断两个字符串是否是字母异位词
 from collections import Counter
@@ -292,6 +296,67 @@ def count_word_length(s:str)->dict:
     for word in s:
         result[word]=len(word)
     return result
+#找出一个列表中第二大的数字
+'''
+@param lst: 整数数字构成的列表
+@return: 返回第二大的数字
+'''
+def find_second_max_number_copy(lst:list)->int:
+    max_num=max(lst)
+    min_num=min(lst)
+    second_num=lst[0]
+    for num in lst:
+        if num <max_num and num>second_num:
+            second_num=num
+        elif max_num==min_num:
+            return lst[0]
+    return second_num
+
+#将一个嵌套列表拉平成一维列表
+'''
+@param:一个二维整数的列表
+@return:返回一个一维度列表
+'''
+def flatten_second_div_to_list(lst:list)->list:
+    result=[]
+    for num_list in lst:
+        for num in num_list:
+            result.append(num)
+    return result
+#检查一段 HTML 是否是成对闭合的标签（只考虑 <tag></tag> 格式）
+'''
+@param:输入带有html标签的字符串
+@return:是否闭合的Boolean值
+'''
+def html_tag_is_match(s:str) -> bool:
+    html_dict={'[':']','{':'}'}
+    stack=[]
+    for tag in s:
+        if tag in html_dict.keys():
+            stack.append(tag)
+        elif tag in html_dict.values():
+            if not stack or html_dict[stack.pop()]!=tag:
+                return False
+    return True
+#读取文件中的每一行
+def read_lines_from_file(filename: str) -> list:
+    with open(file_name,'r') as f:
+        #readlines读取所有行,以列表的形式返回但是会保留换行符号,如果想去除需要strip()处理
+        file_content=f.readlines()
+    result=[]
+    for line in file_content:
+        #使用strip()去除换行符号
+        result.append(line.strip())
+    return result
+#file_name=input("输入文件路径或当前目录下的文件名: ")
+#异常处理模拟
+def divide(num1: int, num2: int) -> float:
+    try:
+        result=num1/num2
+        return result
+    except ZeroDivisionError:
+        return "除0错误"
 if __name__=="__main__":
-    s=input("输入字符串: ").split()
-    print(count_word_length(s))
+    num1=int(input("输入整数数字1: "))
+    num2=int(input("输入整数数字2: "))
+    print(divide(num1,num2))
