@@ -356,7 +356,44 @@ def divide(num1: int, num2: int) -> float:
         return result
     except ZeroDivisionError:
         return "除0错误"
+#写入文件
+def write_list_to_file(file_name:str,lst:list) -> None:
+    with open(file_name,'w') as f:
+        for word in lst:
+            f.write(word+'\n')
+#读取文本文件的所有行，并逆序输出到屏幕上。
+def read_files_reverse_print(file_name:str)->None:
+    with open(file_name,'r') as f:
+        file_content=f.readlines()
+        for word in reversed(file_content):
+            print(word.strip())
+#读取一个文件，统计文件中总共的字符数、单词数和行数。
+def count_char_word_line(file_name:str)->str:
+    with open(file_name,'r') as f:
+        #readlines返回的是行的列表,读取完一整行后添加换行符号
+        file_content=f.readlines()
+        line_count=len(file_content)
+        char_count=0
+        word_count=0
+        for line in file_content:
+            char_count+=len(line)
+            word_count+=len(line.split())
+    print("字符数: ",char_count,"单词数: ",word_count,"行数: ",line_count)
+#将用户输入的多行文本写入文件（直到输入空行）
+def write_mutiple_line_to_file(file_name:str)->None:
+    with open(file_name,'a',encoding='utf-8') as f:
+        while True:
+            line_content=input("输入一行数据: ")
+            if line_content=="":
+                break
+            f.write(line_content+"\n")
+#将一个文件的内容拷贝到另一个新文件中
+def copy_file_to_new_file(file1,file2):
+    with open(file1,'r',encoding='utf-8') as f1:
+        file_countent=f1.readlines()
+    with open(file2,'w',encoding='utf-8') as f2:
+        f2.writelines(file_countent)
 if __name__=="__main__":
-    num1=int(input("输入整数数字1: "))
-    num2=int(input("输入整数数字2: "))
-    print(divide(num1,num2))
+    file1=r"D:\360MoveData\Users\YAN\Desktop\test.txt"
+    file2=r"D:\360MoveData\Users\YAN\Desktop\test2.txt"
+    copy_file_to_new_file(file1,file2)
