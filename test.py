@@ -340,7 +340,7 @@ def html_tag_is_match(s:str) -> bool:
     return True
 #读取文件中的每一行
 def read_lines_from_file(filename: str) -> list:
-    with open(file_name,'r') as f:
+    with open(filename,'r') as f:
         #readlines读取所有行,以列表的形式返回但是会保留换行符号,如果想去除需要strip()处理
         file_content=f.readlines()
     result=[]
@@ -393,7 +393,58 @@ def copy_file_to_new_file(file1,file2):
         file_countent=f1.readlines()
     with open(file2,'w',encoding='utf-8') as f2:
         f2.writelines(file_countent)
+#过滤空行并将文件内容复制到新文件
+def filter_blank_file1_to_file2(file1,file2):
+    with open(file1,'r') as f1:
+        f1_filter_content=[line for line in f1 if not line.isspace()]
+    with open(file2,'w') as f2:
+        f2.writelines(f1_filter_content)
+#读取csv文件,并提取列
+import csv
+def read_csv_file_extract_column(file1,file2,column_name):
+    with open(file1,'r') as f1,open(file2,'w') as f2:
+        reader=csv.DictReader(f1)
+        for row in reader:
+            if column_name in row:
+                f2.write(row[column_name]+"\n")
+#读取一个文件，找出出现次数最多的单词
+from collections import Counter
+def read_file_find_most_count_word(file1):
+    result=[]
+    with open(file1,'r') as f1:
+        file_content=f1.readlines()
+    for line in file_content:
+        #字符串不可修改,需要赋值返回
+        words_in_line = line.strip().split()
+        #split()分开后以列表的形式返回
+        result.extend(words_in_line)
+    count=Counter(result)
+    return count.most_common(1)
+#将日志文件中包含某个关键词的行提取出来，写入新文件
+def contains_error_to_new_file(file1,file2,keyword):
+    keyword=input("输入关键词: ")
+    with open(file1,'r') as f1:
+        file1_lines=f1.readlines()
+    file2_content=[]
+    for line in file1_lines:
+        if keyword in line:
+            new_line=line.strip()
+            file2_content.append(new_line)
+    with open(file2,'w') as f2:
+        f2.writelines(file2_content)
+#统计文件中每个单词出现的次数
+from collections import Counter
+def count_word_times(file1):
+    word_lst=[]
+    with open(file1,'r') as f1:
+        file_content=f1.readlines()
+    for line in file_content:
+        new_line_lst=line.strip().split()
+        word_lst.extend(new_line_lst)
+    count=Counter(word_lst)
+    for word_times in count.most_common():
+        print("单词为:",word_times[0],"次数为:",word_times[1])
+    
 if __name__=="__main__":
     file1=r"D:\360MoveData\Users\YAN\Desktop\test.txt"
-    file2=r"D:\360MoveData\Users\YAN\Desktop\test2.txt"
-    copy_file_to_new_file(file1,file2)
+    count_word_times(file1)
