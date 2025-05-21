@@ -127,4 +127,37 @@ group by CustomerId
 order by total_amout desc
 limit 3
 
+--表 students(id, name) 与 scores(student_id, subject, score)。
+--查询每个学生的语文成绩（subject = 'Chinese'），包括学生姓名。
+select ss.id,ss.name,sc.subject,sc.score
+from ss
+left join sc
+    on  pn ss.id=sc.student_id
+where sc.subject='Chinese'
 
+--表 sales(order_id, region, amount)
+--按 region 分组，查询每个地区的订单总金额和订单数量。
+select sum(amount)as total_amout,count(*) as order_amout
+from sales
+group by region
+
+--表 employees(id, name, salary)
+--查询所有工资高于公司平均工资的员工姓名和工资。
+select id,name,salary
+from employees 
+where salary>(
+    select avg(salary)
+    from employees
+)
+
+--表 users(id, status) 与 logins(user_id, last_login)
+--把 30 天内没有登录的用户状态改为 inactive。
+update users
+set status='inactive'
+where id=(
+    select u.id
+    from users u
+    join logins l
+        on u.id=l.user_id
+    where now() - l.last_login>30
+)

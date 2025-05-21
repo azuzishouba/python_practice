@@ -444,7 +444,68 @@ def count_word_times(file1):
     count=Counter(word_lst)
     for word_times in count.most_common():
         print("单词为:",word_times[0],"次数为:",word_times[1])
-    
+#统计文件中每个单词出现次数（忽略大小写）
+from collections import Counter
+def count_word_count(file_path):
+    new_word_list=[]
+    with open(file_path,"r") as f:
+        file_content=f.readlines()
+    for line in file_content:
+        word_list=line.strip().split()
+        new_word_list.extend(word_list)
+    count=Counter(new_word_list)
+    return count.most_common()
+#将文本文件中所有数字提取出来，写入新文件
+def extract_num_to_new_file(file1,file2):
+    write_content=[]
+    with open(file1,'r',encoding='utf-8') as f1:
+        file_content=f1.readlines()
+    for line in file_content:
+        new_line=line.strip().split()
+        for element in new_line:
+            if element.isdigit():
+                write_content.append(element)
+                write_content.append(';')
+    with open(file2,'w',encoding='utf-8') as f2:
+        f2.writelines(write_content)
+#读取csv文件
+import csv
+def read_csv_file(file_path):
+    with open(file_path,'r',encoding='utf-8') as f:
+        csv_reader=csv.reader(f)
+        for row in csv_reader:
+            print(row)
+#写入csv文件
+import csv
+def write_csv_file(file_path):
+    data=[[12,'peter'],[14,'david']]
+    with open(file_path,'a',encoding='utf-8',newline='') as f:
+        csv_writer=csv.writer(f)
+        for row in data:
+            csv_writer.writerow(row)
+#使用dict_reader读取文件
+import csv
+def read_file_from_dict(file_path):
+    with open(file_path,'r',encoding='utf-8') as f:
+        csv_reader=csv.DictReader(f)
+        for row in csv_reader:
+            print(row)
+#使用dict_writer写入文件
+import csv
+def write_file_from_dict(file_path):
+    data=[{'age':12,'name':'cc'},{'age':11,'name':'aa'}]
+    with open(file_path,'a',encoding='utf-8',newline='') as f:
+        colname=['age','name']
+        csv_dict_writer=csv.DictWriter(f,fieldnames=colname)
+        #判断表头是否为空,空的话写表头
+        for row in data:
+            csv_dict_writer.writerow(row)
+#读取csv文件过滤出年龄大于25的数据并写入新文件
+import csv
+def filter_age_to_new_file(file1,file2):
+    with open(file1,'r',encoding='utf-8') as f1,open(file2,'w',encoding='utf-8'):
+        pass
+
 if __name__=="__main__":
-    file1=r"D:\360MoveData\Users\YAN\Desktop\test.txt"
-    count_word_times(file1)
+    file1=r"C:\Users\EDY\Desktop\test.csv"
+    file2=r"C:\Users\EDY\Desktop\test1.csv"
