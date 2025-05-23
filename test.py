@@ -486,7 +486,7 @@ def write_csv_file(file_path):
 #使用dict_reader读取文件
 import csv
 def read_file_from_dict(file_path):
-    with open(file_path,'r',encoding='utf-8') as f:
+    with open(file1,'r',encoding='utf-8') as f:
         csv_reader=csv.DictReader(f)
         for row in csv_reader:
             print(row)
@@ -503,9 +503,31 @@ def write_file_from_dict(file_path):
 #读取csv文件过滤出年龄大于25的数据并写入新文件
 import csv
 def filter_age_to_new_file(file1,file2):
-    with open(file1,'r',encoding='utf-8') as f1,open(file2,'w',encoding='utf-8'):
-        pass
+    with open(file1,'r',encoding='utf-8') as f1,open(file2,'w',encoding='utf-8',newline='') as f2:
+        csv_reader=csv.reader(f1)
+        csv_writer=csv.writer(f2)
+        for row in csv_reader:
+            for item in row:
+                if item.isdigit() and int(item)>25:
+                    csv_writer.writerow(row)
+#读取csv文件过滤出年龄大于25的数据并写入新文件（使用csv_dict）
+import csv
+def filter_age_to_new_file_dict(file1,file2):
+    with open(file1,'r',encoding='utf-8') as f1,open(file2,'a',encoding='utf-8',newline='') as f2:
+        colname=csv.DictReader(f1).fieldnames
+        csv_dict_reader=csv.DictReader(f1,fieldnames=colname)
+        csv_dict_writer=csv.DictWriter(f2,fieldnames=colname)
+        for row in csv_dict_reader:
+            if row['age'].isdigit() and int(row['age'])>25:
+                csv_dict_writer.writerow(row)
+#读取csv文件
+import csv
+def read_csv_file_use_dict(file1):
+    with open(file1,'r',encoding='utf-8') as f1:
+        csv_reader=csv.DictReader(f1)
+        for row in csv_reader:
+            print(row)
 
 if __name__=="__main__":
     file1=r"C:\Users\EDY\Desktop\test.csv"
-    file2=r"C:\Users\EDY\Desktop\test1.csv"
+    read_csv_file_use_dict(file1)
