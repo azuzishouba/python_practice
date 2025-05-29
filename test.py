@@ -527,7 +527,59 @@ def read_csv_file_use_dict(file1):
         csv_reader=csv.DictReader(f1)
         for row in csv_reader:
             print(row)
-
+#写入并读取文件内容
+#描述：将一个字符串写入 example.txt 文件中，然后读取出来并打印。
+def write_str_to_file(file1):
+    with open(file=file1,mode='w',encoding='utf-8') as f1:
+        f1.write("hello world!")
+    with open(file1,'r') as f1:
+        print(f1.read())
+#文件 lines.txt 中包含多行文本，请统计该文件共有多少行。
+def count_line(file1):
+    with open(file1,'r',encoding='utf-8') as f1:
+        line_count=len(f1.readlines())
+    return line_count
+#题目 3：复制文件内容
+#描述：将 source.txt 中的内容复制到 destination.txt。
+def copy_file1_to_file2(file1,file2):
+    with open(file1,'r',encoding='utf-8') as f1,open(file2,'w+',encoding='utf-8') as f2:
+        f2.writelines(f1.readlines())
+    with open(file2,'r',encoding='utf-8') as f2:
+        print(f2.read())
+#写一个函数，返回前 n 项斐波那契数列
+def return_fibnacci_list(n):
+    result=[1,1]
+    if n<=2:
+        return result[:n] 
+    if n>2:
+        for i in range(2,n):
+            next_num=result[i-1]+result[i-2]
+            result.append(next_num)
+        return result
+#给定一个字典 {‘a’: 3, ‘b’: 1, ‘c’: 2}，按 value 从小到大排序。
+def sort_dict_by_values(dict1):
+    item=list(dict1.items())
+    item.sort(key=lambda x: x[1])
+    new_dict={}
+    for key,values in item:
+        new_dict[key]=values
+    return new_dict
+#找出字典中 value 最大的 key
+def find_value_max_key(dict1):
+    items=list(dict1.items())
+    items.sort(key=lambda x:x[1],reverse=True)
+    return items[0][0]
+#统计字符串中每个字符出现的次数（构建字典）
+from collections import Counter
+def count_char_time(str1):
+    count=Counter(str1)
+    return dict(count)
+#交换字典中的 key 和 value
+def exchange_key_value(dict1):
+    new_dict={}
+    for key,values in dict1.items():
+        new_dict[values]=key
+    return new_dict
 if __name__=="__main__":
-    file1=r"C:\Users\EDY\Desktop\test.csv"
-    read_csv_file_use_dict(file1)
+    dict1={'a':1,'b':2}
+    print(exchange_key_value(dict1))

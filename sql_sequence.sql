@@ -161,3 +161,33 @@ where id=(
         on u.id=l.user_id
     where now() - l.last_login>30
 )
+| id | name    | age | department | salary |
+| -- | ------- | --- | ---------- | ------ |
+| 1  | Alice   | 30  | HR         | 8000   |
+| 2  | Bob     | 24  | IT         | 10000  |
+| 3  | Charlie | 29  | IT         | 9500   |
+--表名：employees
+--查询每个部门的平均工资，按平均工资降序排序。
+select avg(salary) as avg_salary
+from employees
+group by department
+order by avg_salary desc
+
+题目 3:多表连接
+
+表1:orders
+order_id	customer_id	amount
+101	1	300
+102	2	500
+
+表2:customers
+id	name
+1	John Doe
+2	Jane Smith
+查询每个订单的客户姓名和订单金额。
+
+select o.id,c.name,amout
+from orders o
+left join customers c
+    on o.customer_id=c.id
+
