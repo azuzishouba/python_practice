@@ -580,6 +580,19 @@ def exchange_key_value(dict1):
     for key,values in dict1.items():
         new_dict[values]=key
     return new_dict
+#匹配所有 3 位数字
+#字符串： "abc123 xyz456 78 9000"
+import re
+def match_three_number(str):
+    pattern = re.compile(r'(?<!\d)\d{3}(?!\d)')
+    return pattern.findall(str)
+#提取所有以 a 开头、以 c 结尾的三字母单词
+#字符串： "abc a7c acc adc a-c aac"
+import re
+def match_a_and_c(str):
+    pattern=re.compile(r'\ba[a-zA-Z]{1}c\b')
+    return pattern.findall(str)
+
 if __name__=="__main__":
-    dict1={'a':1,'b':2}
-    print(exchange_key_value(dict1))
+    str="abc a7c acc adc a-c aac"
+    print(match_a_and_c(str))
