@@ -190,4 +190,104 @@ select o.id,c.name,amout
 from orders o
 left join customers c
     on o.customer_id=c.id
+--题目 1：查询姓名为 "Tom" 的学生信息
+--表名：students
+--字段：id, name, age, gender, grade
+select *
+from students s
+where s.name='Tom'
+----题目 2：查询年龄大于 18 岁的所有学生，并按年龄降序排列
+--表名：students
+select id,name,age
+from students s
+where s.age>18
+order by age desc
+--题目 3：查询所有不重复的年级（grade）
+--表名：students
+select grade
+from students s 
+group by grade
+having count(grade)=1
+--题目 4：查询每个年级的学生人数
+--表名：students
+select count(*) as student_count
+from students s 
+group by grade
 
+--题目 5：查询学生人数最多的年级
+--提示：可以使用 GROUP BY + ORDER BY 或子查询
+select grade
+from students
+group by grade
+order by count(*) desc
+limit 1
+--题目 6：查询所有成绩高于年级平均成绩的学生
+--表名：scores
+--字段：student_id, subject, score, grade
+select id,name,score
+from students s 
+left join scores sc 
+    on s.id=sc.student_id
+where score>(
+    select avg(score)
+    from scores sc
+    where grade = s.grade
+)
+
+--表名：employees  
+--字段：id (INT), name (VARCHAR), salary (DECIMAL)
+--查询 employees 表中所有工资大于 5000 的员工姓名和工资
+select name,salary
+from employees e 
+where salary>5000
+--表名：students  
+--字段：id (INT), name (VARCHAR), score (INT)
+--查询 students 表中成绩最高的前 3 名学生信息
+select id,name,score
+from students s 
+order by score desc
+limit 3
+--表名：products  
+--字段：id (INT), name (VARCHAR), price (DECIMAL)
+--向 products 表中插入一个新商品，名称为 "iPhone 99"，价格为 9999。
+insert into products(name,price)
+values("iPhone 99", 9999)
+--表名：orders  
+--字段：id (INT), user_id (INT), status (VARCHAR), total (DECIMAL)
+--将 orders 表中所有状态为 "pending" 的订单状态改为 "completed"
+update orders
+set status='completed'
+where status='pending'
+--表名：orders (id, user_id, total_amount)  
+--表名：users (id, name, email)
+--查询订单表 orders 和用户表 users，找出每个订单对应的用户名和订单金额
+select u.name,o.total_amount
+from users u 
+left join orders o
+    on u.id=o.id
+--表名：sales  
+--字段：id (INT), product_id (INT), quantity (INT), sale_date (DATE)
+--查询 sales 表中各产品的总销量（按 product_id 分组）
+select count(quantity) as total_quantity
+from sales
+group by product_id
+--表名：employees  
+--字段：id (INT), name (VARCHAR), salary (DECIMAL)
+--查询工资高于全公司平均工资的员工姓名。
+select name,salary
+from employees e 
+where salary>(
+    select avg(salary) as avg_salary
+    from employees e
+)
+--表名：orders (id, user_id, order_date)  
+--表名：order_items (id, order_id, product_id, quantity)  
+--表名：users (id, name)
+--查询至少购买过一次商品编号为 101 的所有用户信息
+select id,name
+from users u 
+join orders o
+    on u.id=o.users_id
+join orders_items os 
+    on o.id=order_id
+where 101 in os.product_id

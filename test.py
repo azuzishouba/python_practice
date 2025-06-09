@@ -592,7 +592,14 @@ import re
 def match_a_and_c(str):
     pattern=re.compile(r'\ba[a-zA-Z]{1}c\b')
     return pattern.findall(str)
-
+#匹配合法的邮箱地址
+#字符串： "tom@example.com, not_an_email, jane-doe@company.org"
+import re
+def match_email(str):
+    pattern=re.compile(r'[a-zA-Z-.]+@[a-zA-Z]+\.+(com|org)')
+    print(pattern.match(str))
+    #for result in pattern.finditer(str):
+        #print(result.group(0))
 if __name__=="__main__":
-    str="abc a7c acc adc a-c aac"
-    print(match_a_and_c(str))
+    str="tom@example.com, not_an_email, jane-doe@company.org"
+    match_email(str)
