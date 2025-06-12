@@ -600,6 +600,21 @@ def match_email(str):
     print(pattern.match(str))
     #for result in pattern.finditer(str):
         #print(result.group(0))
+#给定数组长度为n的数组找到峰值并返回索引
+import random
+def find_top_index(lst)->int:
+    result=[]
+    try:
+        for i in range(1,len(lst)-1):
+            #判断是否为山峰
+            if lst[i]>lst[i-1] and lst[i]>lst[i+1]:
+                result.append(i)
+        #使用random.choice返回任一索引
+        return random.choice(result)
+    #choice无法在空列表的情况下使用
+    except IndexError:
+        return "输入列表无山峰"
+
 if __name__=="__main__":
-    str="tom@example.com, not_an_email, jane-doe@company.org"
-    match_email(str)
+    lst=list(map(int,input("输入一些整数: ").split()))
+    print(find_top_index(lst))
