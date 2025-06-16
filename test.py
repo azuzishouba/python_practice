@@ -614,7 +614,29 @@ def find_top_index(lst)->int:
     #choice无法在空列表的情况下使用
     except IndexError:
         return "输入列表无山峰"
-
+# 绝对值转int类型
+import math
+def fabs_convert_to_int(num:int)->int:
+    return int(math.fabs(num))
+#统计字符串中各字符出现的次数
+from collections import Counter
+def count_times_in_string(str):
+    count=Counter(str)
+    return dict(count)
+#找出列表中的最大差值
+#题目描述：
+#给定一个整数列表，找出其中两个数的最大差值（较大的数必须出现在较小的数之后）。
+def find_max_difference(lst):
+    result=[]
+    for i in range(0,len(lst)-1):
+        for j in range(i,len(lst)):
+            if lst[j]>lst[i]:
+                cha=lst[j]-lst[i]
+                result.append(cha)
+    return max(result)
+#输入一个字符串，判断是否为回文（正着读和反着读都一样）。
+def panduan_is_huiwen(str):
+    return str==str[::-1]
 if __name__=="__main__":
-    lst=list(map(int,input("输入一些整数: ").split()))
-    print(find_top_index(lst))
+    lst=list(map(int,input("输入一些数字: ").split()))
+    print(find_max_difference(lst))
