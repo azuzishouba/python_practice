@@ -650,3 +650,58 @@ def find_one_element(lst):
 if __name__=="__main__":
     lst=list(map(int,input("输入一些整数: ").split()))
     print(find_one_element(lst))
+#反转字符串
+def reverse_a_string(str):
+    res = []  # 用于存放所有单词
+    word = ''  # 当前单词的字符
+
+    i = len(str) - 1
+    while i >= 0:
+        if str[i] != ' ':
+            word = str[i] + word  # 从后往前添加字符
+        else:
+            if word:
+                res.append(word)
+                word = ''
+        i -= 1
+
+    if word:  # 加入最后一个单词（如果有）
+        res.append(word)
+
+    # 手动拼接单词
+    result = ''
+    for i in range(len(res)):
+        result += res[i]
+        if i != len(res) - 1:
+            result += ' '
+
+    return result
+#提取ms并计算最大最小平均
+'''
+logs = [
+    "2025-06-19 12:00:01 - GET /api/user - 200 OK - 132ms",
+    "2025-06-19 12:00:02 - GET /api/order - 200 OK - 215ms",
+    "2025-06-19 12:00:03 - GET /api/user - 500 ERROR - 503ms",
+    "2025-06-19 12:00:04 - GET /api/user - 200 OK - 87ms"
+]
+# TODO:提取所有ms值,统计 max/min/avg
+'''
+import re
+def extract_ms_from_log(log_lst):
+    pattern=re.compile(r'\d+ms')
+    ms_lst,count_lst=[],[]
+    for log in log_lst:
+        ms=pattern.findall(log)
+        ms_lst.extend(ms)
+    for ms_log in ms_lst:
+        ms_count=ms_log.strip('ms')
+        count_lst.append(int(ms_count))
+    print("ms值为:",ms_lst)
+    print(f'ms的最大值为{max(count_lst)},最小值为{min(count_lst)},平均值为{sum(count_lst)//len(count_lst)}')
+if __name__=="__main__":
+    log_lst= [
+    "2025-06-19 12:00:01 - GET /api/user - 200 OK - 132ms",
+    "2025-06-19 12:00:02 - GET /api/order - 200 OK - 215ms",
+    "2025-06-19 12:00:03 - GET /api/user - 500 ERROR - 503ms",
+    "2025-06-19 12:00:04 - GET /api/user - 200 OK - 87ms"]
+    print(extract_ms_from_log(log_lst))
