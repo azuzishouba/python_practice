@@ -291,3 +291,28 @@ join orders o
 join orders_items os 
     on o.id=order_id
 where 101 in os.product_id
+--有一个名为 employee 的表，包含字段 id 和 salary，请写出 SQL 查询第二高的薪水（若没有则返回 NULL）。
+
+-- 示例数据:
+-- id | salary
+-- 1  | 5000
+-- 2  | 8000
+-- 3  | 5000
+-- 4  | 10000
+-- 输出: 8000
+select distinct salary
+from employee e
+order by salary desc
+limit 1,1
+--有两个表：
+
+    --employee(id, name, dept_id)
+
+    --department(id, dept_name)
+
+--请查询每个部门的员工数量（包括没有人的部门也要显示）。
+select count(*) as total_count
+from department d 
+left join employee e 
+    on d.id=e.dept_id
+group by d.id

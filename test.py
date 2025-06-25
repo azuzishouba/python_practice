@@ -637,6 +637,16 @@ def find_max_difference(lst):
 #输入一个字符串，判断是否为回文（正着读和反着读都一样）。
 def panduan_is_huiwen(str):
     return str==str[::-1]
+#给定一段英文文本字符串，统计各单词出现的频率，返回一个字典，按频率从高到低排序
+from collections import Counter
+def count_word_in_str(s):
+    new_s=s.replace('.','')
+    count=Counter(new_s.split())
+    return dict(count)
+#给定一个整数列表，所有元素都出现了两次，只有一个元素只出现一次，找出它
+def find_one_element(lst):
+    new_lst=[x for x in lst if lst.count(x)==1]
+    return new_lst[0]
 if __name__=="__main__":
-    lst=list(map(int,input("输入一些数字: ").split()))
-    print(find_max_difference(lst))
+    lst=list(map(int,input("输入一些整数: ").split()))
+    print(find_one_element(lst))
