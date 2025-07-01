@@ -755,9 +755,33 @@ def merge_file1_file2_to_file3(file1,file2,file3):
         f3.write('\n====分隔线====\n')
         f3.writelines(f2.readlines())
 
+'''
+给定如下列表：
 
+people = [
+    {"name": "Alice", "age": 30},
+    {"name": "Bob", "age": 25},
+    {"name": "Charlie", "age": 25},
+    {"name": "David", "age": 35}
+]
+
+请按照：
+
+    age 升序
+
+    若 age 相同，按 name 字母顺序
+'''
+def sorted_dict_by_age_and_name(dict1):
+    sorted_dict=sorted(people,key=lambda p:(p['age'],p['name']))
+    return sorted_dict
+
+#输入一个整数列表，找出所有差值最小的数对
+def return_min_difference(lst):
+    lst.sort()
+    result=[]
+    for i in range(0,len(lst)-1):
+        result.append([lst[i],lst[i+1]])
+    return result
 if __name__=="__main__":
-    file1=r"C:\Users\EDY\Desktop\test\a.txt"
-    file2=r"C:\Users\EDY\Desktop\test\b.txt"
-    file3=r"C:\Users\EDY\Desktop\test\c.txt"
-    merge_file1_file2_to_file3(file1,file2,file3)
+    arr = [4, 2, 1, 3]
+    print(return_min_difference(lst=arr))
