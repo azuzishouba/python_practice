@@ -316,3 +316,22 @@ from department d
 left join employee e 
     on d.id=e.dept_id
 group by d.id
+--查每个部门平均工资
+表:employee
+| id | name  | salary | dept\_id |
+| -- | ----- | ------ | -------- |
+| 1  | Alice | 5000   | 10       |
+| 2  | Bob   | 7000   | 20       |
+| 3  | Carol | 6000   | 10       |
+select avg(salary) as avg_salary
+from employee
+group  by employee.dept_id
+
+--查工资高于本部门平均工资的员工
+select id,name,salary
+from employee e1
+where salary>(
+    select avg(salary) as avg_salary
+    from employee e2
+    where e1.dept_id=e2.dept_id
+)

@@ -696,4 +696,93 @@ def extract_ms_from_log(log_lst):
         count_lst.append(int(ms_count))
     print("ms值为:",ms_lst)
     print(f'ms的最大值为{max(count_lst)},最小值为{min(count_lst)},平均值为{sum(count_lst)//len(count_lst)}')
+
+
+#写一个函数，接收一个字符串列表，返回其中 长度大于 5 且包含字母“a” 的所有字符串列表。
+def return_contains_a(lst):
+    new_lst=[x for x in lst if len(x)>5 and x.count('a')>=1]
+    return new_lst
+#写一个函数，统计一段文本中，每个单词出现的次数，结果用字典返回，忽略大小写
+from collections import Counter
+import re
+def return_count_char(s):
+    pattern=re.compile(r'\w+')
+    new_lst=pattern.findall(text.lower())
+    count=Counter(new_lst)
+    return dict(count)
+'''
+编写一个函数：
+
+    接收一个文件路径
+
+    读取文件内容
+
+    将所有行写入另一个新文件，但要剔除掉所有空行
+
+    如果文件不存在，捕获异常并打印 文件不存在
+'''
+def write_file1_content_to_file2(file1,file2):
+    try:
+        with open(file1,'r',encoding='utf-8') as f1,open(file2,'w',encoding='utf-8') as f2:
+            for line in f1:
+                if not line.isspace():
+                    f2.write(line)
+    except FileNotFoundError:
+        print("文件未找到")
+'''
+从下面的字符串里，提取所有以 http 或 https 开头的链接：
+
+请访问：
+https://www.baidu.com
+也可以看看 http://example.org
+还有一个：https://test.com/path
+'''
+import re 
+def extract_http_from_str(s):
+    pattern=re.compile(r'https?://\S+')
+    return pattern.findall(s)
+'''
+有两个文本文件 file1.txt 和 file2.txt。
+
+请编写一个函数：
+
+    把 file1.txt 和 file2.txt 的所有内容合并到一个新文件 merged.txt
+
+    合并时，每个文件的内容之间加一行分隔线："====分隔线====\n"
+'''
+def merge_file1_file2_to_file3(file1,file2,file3):
+    with open(file1,'r',encoding='utf-8') as f1,open(file2,'r',encoding='utf-8') as f2,open(file3,'w',encoding='utf-8') as f3:
+        f3.writelines(f1.readlines())
+        f3.write('\n====分隔线====\n')
+        f3.writelines(f2.readlines())
+
+'''
+给定如下列表：
+
+people = [
+    {"name": "Alice", "age": 30},
+    {"name": "Bob", "age": 25},
+    {"name": "Charlie", "age": 25},
+    {"name": "David", "age": 35}
+]
+
+请按照：
+
+    age 升序
+
+    若 age 相同，按 name 字母顺序
+'''
+def sorted_dict_by_age_and_name(dict1):
+    sorted_dict=sorted(people,key=lambda p:(p['age'],p['name']))
+    return sorted_dict
+
+#输入一个整数列表，找出所有差值最小的数对
+def return_min_difference(lst):
+    lst.sort()
+    result=[]
+    for i in range(0,len(lst)-1):
+        result.append([lst[i],lst[i+1]])
+    return result
 if __name__=="__main__":
+    arr = [4, 2, 1, 3]
+    print(return_min_difference(lst=arr))
