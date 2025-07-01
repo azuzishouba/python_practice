@@ -647,9 +647,7 @@ def count_word_in_str(s):
 def find_one_element(lst):
     new_lst=[x for x in lst if lst.count(x)==1]
     return new_lst[0]
-if __name__=="__main__":
-    lst=list(map(int,input("输入一些整数: ").split()))
-    print(find_one_element(lst))
+
 #反转字符串
 def reverse_a_string(str):
     res = []  # 用于存放所有单词
@@ -699,9 +697,3 @@ def extract_ms_from_log(log_lst):
     print("ms值为:",ms_lst)
     print(f'ms的最大值为{max(count_lst)},最小值为{min(count_lst)},平均值为{sum(count_lst)//len(count_lst)}')
 if __name__=="__main__":
-    log_lst= [
-    "2025-06-19 12:00:01 - GET /api/user - 200 OK - 132ms",
-    "2025-06-19 12:00:02 - GET /api/order - 200 OK - 215ms",
-    "2025-06-19 12:00:03 - GET /api/user - 500 ERROR - 503ms",
-    "2025-06-19 12:00:04 - GET /api/user - 200 OK - 87ms"]
-    print(extract_ms_from_log(log_lst))
