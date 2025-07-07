@@ -783,6 +783,51 @@ def return_min_difference(lst):
     for i in range(0,len(lst)-1):
         result.append([lst[i],lst[i+1]])
     return result
+#写一个函数 merge_sorted(a, b)，将两个升序列表合并成一个新的升序列表（不要用 sort）
+def merge_two_lst(lst1,lst2):
+    result=[]
+    i,j=0,0
+    while i<len(lst1) and j<len(lst2):
+        if lst1[i]<lst2[j]:
+            result.append(lst1[i])
+            i+=1
+        else:
+            result.append(lst2[j])
+            j+=1
+    result.extend(lst1[i:])
+    result.extend(lst2[j:])
+    return result
+#写一个函数 find_mode(nums)，返回列表中出现次数最多的数字（众数），如果有多个众数，全部返回    
+from collections import Counter
+def find_most_time_num(lst1:list):
+    count=Counter(lst1)
+    max_count=count.most_common()[0][1]
+    result=[]
+    for num,time in count.items():
+        if time==max_count:
+            result.append(num)
+    return result
+#从列表里找出所有和为目标值的三元组
+#写一个函数 three_sum(nums, target)，找出所有不重复的三元组，使得三数之和等于 target。
+def find_three_sum_equals_target(num_list,target):
+    i,j,n=0,0,0
+    result=set()
+    num_list.sort()
+    for i in range(0,len(num_list)-2):
+        if i > 0 and num_list[i]==num_list[i-1]:
+            continue
+        for j in range(i+1,len(num_list)-1):
+            if j > i + 1 and num_list[j]==num_list[j-1]:
+                continue
+            for n in range(j+1,len(num_list)):
+                if n> j + 1 and num_list[n]==num_list[n-1]:
+                    continue
+                if num_list[i]+num_list[j]+num_list[n]==target:
+                    result.add((num_list[i],num_list[j],num_list[n]))
+    return [list(triplet) for triplet in result]
+def zip_two_iterators(lst1,lst2):
+    return type(zip(lst1,lst2))
 if __name__=="__main__":
-    arr = [4, 2, 1, 3]
-    print(return_min_difference(lst=arr))
+    lst1=list(map(int,input("输入一些数字").split()))
+    lst2=list(map(int,input("输入一些数字").split()))
+    print(zip_two_iterators(lst1,lst2))
